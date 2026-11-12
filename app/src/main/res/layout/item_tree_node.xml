@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Indentation spacer -->
+    <View
+        android:id="@+id/viewIndent"
+        android:layout_width="0dp"
+        android:layout_height="1dp" />
+
+    <!-- Expand / Collapse chevron -->
+    <ImageView
+        android:id="@+id/imgExpand"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:padding="6dp"
+        android:tint="@color/text_secondary"
+        android:src="@android:drawable/arrow_down_float"
+        android:contentDescription="Expand" />
+
+    <!-- Checkbox -->
+    <CheckBox
+        android:id="@+id/chkSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="0dp"
+        android:minHeight="0dp" />
+
+    <!-- Folder icon / lock icon -->
+    <TextView
+        android:id="@+id/tvIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📁"
+        android:textSize="14sp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="6dp" />
+
+    <!-- Folder Name -->
+    <TextView
+        android:id="@+id/tvFolderName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="DCIM"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp" />
+
+    <!-- Hidden badge -->
+    <TextView
+        android:id="@+id/tvHiddenBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HIDDEN"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:textColor="@color/accent_purple"
+        android:background="@color/bg_card_secondary"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:visibility="gone"
+        android:layout_marginEnd="8dp" />
+
+</LinearLayout>

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚡ Phone to SSD Backup Pro"
+                    android:textColor="@color/accent_blue"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Direct USB 3.2 Type-C OTG with Smart SQLite Ledger"
+                    android:textColor="@color/text_muted"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRefresh"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔄 Refresh"
+                android:textSize="12sp"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+
+        <!-- 1. Destination Card (USB SSD) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@color/bg_card"
+            app:strokeColor="@color/border_card"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. DESTINATION (External USB SSD)"
+                    android:textColor="@color/accent_blue"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSsdStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🔍 Checking for connected USB-C SSD..."
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:layout_marginTop="6dp" />
+
+                <TextView
+                    android:id="@+id/tvSsdSpace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Plug your SSD directly into your phone's Type-C port"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp" />
+
+                <!-- Ledger Status Banner -->
+                <LinearLayout
+                    android:id="@+id/layoutLedgerBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@color/bg_card_secondary"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tvLedgerBanner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="⚪ Smart Ledger: Plug SSD to check"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnFreshToggle"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fresh / Sync"
+                        android:textSize="10sp"
+                        android:textColor="@color/accent_amber" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 2. Source Card (Folder Hierarchy Tree) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@color/bg_card"
+            app:strokeColor="@color/border_card"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2. SOURCE FOLDERS (Phone Storage)"
+                    android:textColor="@color/accent_blue"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <!-- Presets Row -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:layout_marginTop="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPresetDcim"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="📷 DCIM"
+                            android:textSize="11sp"
+                            android:layout_marginEnd="6dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPresetPictures"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="🖼 Pictures"
+                            android:textSize="11sp"
+                            android:layout_marginEnd="6dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPresetDocs"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="📄 Docs"
+                            android:textSize="11sp"
+                            android:layout_marginEnd="6dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPresetAll"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="✔ All"
+                            android:textSize="11sp"
+                            android:layout_marginEnd="6dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPresetClear"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="✖ Clear"
+                            android:textSize="11sp"
+                            android:layout_marginEnd="6dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPresetExpand"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="➕ Expand"
+                            android:textSize="11sp"
+                            android:layout_marginEnd="6dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPresetCollapse"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="➖ Collapse"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- RecyclerView for Hierarchy Tree -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvFolderTree"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/bg_card_secondary"
+                    android:padding="4dp" />
+
+                <!-- Smart Option 2 Notice -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ℹ Smart Option 2 Active: Unchecking a subfolder will still back up loose parent files automatically."
+                    android:textColor="@color/accent_green"
+                    android:textSize="10sp"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 3. Telemetry & Progress Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            app:cardBackgroundColor="@color/bg_card"
+            app:strokeColor="@color/border_card"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3. REAL-TIME TRANSFER METRICS"
+                    android:textColor="@color/accent_blue"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="2"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SPEED" android:textSize="10sp" android:textColor="@color/text_muted" />
+                        <TextView android:id="@+id/tvKpiSpeed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0.0 MB/s" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/accent_blue" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ESTIMATED TIME" android:textSize="10sp" android:textColor="@color/text_muted" />
+                        <TextView android:id="@+id/tvKpiEta" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--:--" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/accent_amber" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TRANSFERRED" android:textSize="10sp" android:textColor="@color/text_muted" />
+                        <TextView android:id="@+id/tvKpiTransferred" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 files (0 MB)" android:textSize="14sp" android:textStyle="bold" android:textColor="@color/accent_green" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SMART SKIPPED" android:textSize="10sp" android:textColor="@color/text_muted" />
+                        <TextView android:id="@+id/tvKpiSkipped" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 files" android:textSize="14sp" android:textStyle="bold" android:textColor="@color/accent_purple" />
+                    </LinearLayout>
+                </GridLayout>
+
+                <TextView
+                    android:id="@+id/tvCurrentFile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status: Ready"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
+                    android:layout_marginTop="8dp" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:trackColor="@color/bg_card_secondary"
+                    app:indicatorColor="@color/accent_blue"
+                    app:trackCornerRadius="4dp"
+                    android:progress="0" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnStart"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="2"
+                android:text="⚡ START BACKUP"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                app:backgroundTint="@color/accent_green"
+                android:textColor="@color/bg_main"
+                app:cornerRadius="10dp"
+                android:layout_marginEnd="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPause"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="⏸ PAUSE"
+                android:textSize="12sp"
+                android:enabled="false"
+                app:cornerRadius="10dp"
+                android:layout_marginEnd="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="✖ CANCEL"
+                android:textSize="12sp"
+                android:enabled="false"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

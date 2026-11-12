@@ -1,0 +1,59 @@
+name: Build Android APK (Phone to SSD Backup)
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Generate Gradle Wrapper
+        run: |
+          gradle wrapper --gradle-version 8.5
+          chmod +x gradlew
+
+      - name: Build Debug APK
+        run: |
+          ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PhoneToSsdBackup-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Create Release with APK
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/heads/master')
+        with:
+          tag_name: v1.0.0
+          name: "Phone to SSD Backup Pro v1.0.0"
+          body: |
+            ### ⚡ Phone to SSD Backup Pro
+            Direct USB 3.2 Type-C OTG Phone to External SSD Synchronizer with SQLite Ledger.
+
+            - **High Speed**: Sequential streaming up to 450 MB/s.
+            - **Option 2 Smart Loose File Inclusion**: Unchecking subfolders still backs up loose parent files.
+            - **Embedded SQLite Ledger**: Auto-mirrored to `/Download/BackupLedger/`.
+            - **Foreground Service**: Background transfer with persistent notification controls.
+          files: app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
